@@ -19,3 +19,5 @@ steps:
   displayName: 'Install dependencies and build Next.js'
   env:
     MONGODB_URI: $(MONGODB_URI)
+- script: npm run lint
+  displayName: 'Run ESLint'
