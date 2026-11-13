@@ -1,23 +1,49 @@
 
 trigger:
-- main
+  - main
 
 variables:
-- group: gobi-brands-secrets
+  - group: gobi-brands-secrets
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ubuntu-24.04
 
-steps:
-- task: UseNode@1
-  inputs:
-    version: '20.x'
-  displayName: 'Install Node.js'
-- script: |
-    npm ci
-    npm run build
-  displayName: 'Install dependencies and build Next.js'
-  env:
-    MONGODB_URI: $(MONGODB_URI)
-- script: npm run lint
-  displayName: 'Run ESLint'
+stages:
+  # STAGE 1: BUILD
+  - stage: Build
+    displayName: Build Application
+    jobs:
+      - job: BuildJob
+        displayName: Build Next.js
+        steps:
+          - task: UseNode@1
+            displayName: Install Node.js
+            inputs:
+              version: '20.x'
+
+          - script: npm ci
+            displayName: Install dependencies
+
+          - script: npm run build
+            displayName: Build Next.js
+            env:
+              MONGODB_URI: $(MONGODB_URI)
+
+  # STAGE 2: TEST
+  - stage: Test
+    displayName: Test Application
+    dependsOn: Build
+    jobs:
+      - job: TestJob
+        displayName: Run checks
+        steps:
+          - task: UseNode@1
+            displayName: Install Node.js
+            inputs:
+              version: '20.x'
+
+          - script: npm ci
+            displayName: Install dependencies
+
+          - script: npm run lint
+            displayName: Run ESLint
