@@ -35,7 +35,6 @@ export default function WomenCardigansPage() {
           (product: Product) =>
             product.category === "Cardigans" && product.gender === "Women",
         );
-        console.log("asdfs");
 
         setProducts(ProductCardigans);
       } catch (error) {
@@ -57,7 +56,7 @@ export default function WomenCardigansPage() {
       <AnnouncementBar />
       <Navbar />
       <h1 className="pt-6 text-5xl font-light tracking-tight sm:text-6xl lg:text-7xl">
-        Women's Cashmere Cardigans
+        Women&apos;s Cashmere Cardigans{" "}
       </h1>
 
       <p className="mt-4 text-base text-neutral-700">
@@ -79,7 +78,7 @@ export default function WomenCardigansPage() {
       {loading ? (
         <p className="py-20 text-center">Loading cardigans...</p>
       ) : products.length === 0 ? (
-        <p className="py-20 text-center">No women's cardigans found.</p>
+        <p className="py-20 text-center">No women&apos;s cardigans found.</p>
       ) : (
         <>
           <div className="mt-8 grid grid-cols-2 gap-x-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
 import AnnouncementBar from "@/components/AnnouncementBar";
-import { error } from "console";
 
 type Product = {
   _id: string;
@@ -43,7 +42,6 @@ export default function WomenHoodiesPage() {
         console.log(error);
       } finally {
         setLoading(false);
-        console.log("Successfull fetching");
       }
     }
     fetchData();
@@ -61,7 +59,7 @@ export default function WomenHoodiesPage() {
       <AnnouncementBar />
       <Navbar />
       <h1 className="pt-6 text-5xl font-light tracking-tight sm:text-6xl lg:text-7xl">
-        Women's Cashmere Hoodies
+        Women&apos;s Cashmere Hoodies
       </h1>
       <p className="mt-4 text-base text-neutral-700">
         Cashmere hoodies in Mongolian quality, with relaxed silhouettes crafted
@@ -82,7 +80,7 @@ export default function WomenHoodiesPage() {
       {loading ? (
         <p className="py-20 text-center">Loading hoodies...</p>
       ) : products.length === 0 ? (
-        <p className="py-20 text-center">No women's hoodies found.</p>
+        <p className="py-20 text-center">No women&apos;s hoodies found.</p>
       ) : (
         <>
           <div className="mt-8 grid grid-cols-2 gap-x-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">

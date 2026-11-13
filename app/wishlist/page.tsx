@@ -1,9 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useStore } from "@/app/context/StoreContext";
 import { Heart, ShoppingBag, Trash2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import AnnouncementBar from "@/components/AnnouncementBar";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type Product = {
   _id: string;
@@ -15,8 +18,6 @@ type Product = {
   images: string[];
   colors?: string[];
 };
-
-import { useEffect, useState } from "react";
 
 export default function WishlistPage() {
   const { wishlist, toggleWishlist, addToCart } = useStore();
@@ -52,6 +53,7 @@ export default function WishlistPage() {
       {/* Page heading */}
       <AnnouncementBar />
       <Navbar />
+
       <div className="mb-10 text-center">
         <h1 className="text-4xl font-light tracking-tight sm:text-7xl">
           My Wishlist
@@ -80,12 +82,12 @@ export default function WishlistPage() {
             Save your favourite products and find them here later.
           </p>
 
-          <a
+          <Link
             href="/"
             className="mt-7 border border-black px-8 py-3 text-xs tracking-widest transition-colors hover:bg-black hover:text-white"
           >
             CONTINUE SHOPPING
-          </a>
+          </Link>
         </div>
       )}
 
@@ -97,17 +99,19 @@ export default function WishlistPage() {
               {/* Image */}
               <div className="group relative aspect-[3/4] overflow-hidden bg-neutral-100">
                 {product.images?.[0] && (
-                  <img
+                  <Image
                     src={product.images[0]}
                     alt={product.name}
-                    className="h-full w-full object-contain cursor-pointer transition-transform duration-700 ease-in-out group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 25vw"
+                    className="cursor-pointer object-contain transition-transform duration-700 ease-in-out group-hover:scale-105"
                   />
                 )}
 
                 <button
                   onClick={() => toggleWishlist(product._id)}
                   aria-label="Remove from wishlist"
-                  className="absolute right-3 top-3 flex h-10 w-10 translate-y-2 items-center justify-center rounded-full bg-white text-black opacity-0 shadow-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-black hover:text-white focus-visible:translate-y-0 focus-visible:opacity-100 cursor-pointer"
+                  className="absolute right-3 top-3 z-10 flex h-10 w-10 translate-y-2 cursor-pointer items-center justify-center rounded-full bg-white text-black opacity-0 shadow-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-black hover:text-white focus-visible:translate-y-0 focus-visible:opacity-100"
                 >
                   <Trash2 size={17} strokeWidth={1.5} />
                 </button>
@@ -133,7 +137,7 @@ export default function WishlistPage() {
                       images: product.images,
                     })
                   }
-                  className="mt-4 cursor-pointer flex w-full items-center justify-center gap-2 border border-black py-3 text-xs tracking-widest transition-all duration-300 hover:bg-black hover:text-white"
+                  className="mt-4 flex w-full cursor-pointer items-center justify-center gap-2 border border-black py-3 text-xs tracking-widest transition-all duration-300 hover:bg-black hover:text-white"
                 >
                   <ShoppingBag size={16} strokeWidth={1.5} />
                   ADD TO BAG
@@ -151,5 +155,4 @@ export default function WishlistPage() {
       )}
     </main>
   );
-  console.log("Saved wishlist items:", wishlist);
 }

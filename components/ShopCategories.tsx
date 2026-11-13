@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const featuredCategories = [
   {
     title: "Shop women",
@@ -45,10 +47,12 @@ export default function ShopCategories() {
             href={category.href}
             className="group relative block h-[520px] overflow-hidden sm:h-[620px]"
           >
-            <img
+            <Image
               src={category.image}
               alt={category.title}
-              className="h-500px w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
 
             <div className="absolute inset-0 bg-black/10 transition-colors duration-300 group-hover:bg-black/20" />
@@ -68,10 +72,12 @@ export default function ShopCategories() {
             href={category.href}
             className="group relative block aspect-[3/4] overflow-hidden"
           >
-            <img
+            <Image
               src={category.image}
               alt={category.title}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
 
             <div className="absolute inset-0 bg-black/5 transition-colors duration-300 group-hover:bg-black/15" />

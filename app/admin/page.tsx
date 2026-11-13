@@ -1,10 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -19,13 +21,12 @@ export default function AdminLogin() {
       });
 
       const data = await response.json();
-
       if (response.ok && data.success) {
-        window.location.href = "/admin/dashboard";
+        router.push("/admin/dashboard");
       } else {
         alert(data.message || "Login failed");
       }
-    } catch (error) {
+    } catch {
       alert("Could not connect to the server. Please try again.");
     }
   }

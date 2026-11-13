@@ -28,6 +28,7 @@ export default function WomenSweatersPage() {
       try {
         const response = await fetch("/api/products");
         const data = await response.json();
+
         if (!response.ok || !data.success) {
           throw new Error("Failed to load products");
         }
@@ -59,8 +60,9 @@ export default function WomenSweatersPage() {
     <main className="min-h-screen bg-white px-5 pt-32 pb-16 sm:px-8 sm:pt-36">
       <AnnouncementBar />
       <Navbar />
+
       <h1 className="pt-6 text-5xl font-light tracking-tight sm:text-6xl lg:text-7xl">
-        Women's Cashmere Sweaters
+        Women&apos;s Cashmere Sweaters
       </h1>
 
       <p className="mt-4 text-base text-neutral-700">
@@ -88,7 +90,7 @@ export default function WomenSweatersPage() {
       {loading ? (
         <p className="py-20 text-center">Loading sweaters...</p>
       ) : products.length === 0 ? (
-        <p className="py-20 text-center">No women's sweaters found.</p>
+        <p className="py-20 text-center">No women&apos;s sweaters found.</p>
       ) : (
         <>
           <div className="mt-8 grid grid-cols-2 gap-x-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">

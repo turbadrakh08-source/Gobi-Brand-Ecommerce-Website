@@ -556,11 +556,14 @@ export default function BulkUploadPage() {
                 >
                   <div className="relative aspect-[3/4] bg-neutral-100">
                     {product.imageUrl ? (
-                      <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        className="h-full w-full object-contain"
-                      />
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={product.imageUrl}
+                          alt={product.name}
+                          className="h-full w-full object-contain"
+                        />
+                      </>
                     ) : (
                       <div className="flex h-full flex-col items-center justify-center gap-2 text-neutral-400">
                         <ImageIcon size={32} />

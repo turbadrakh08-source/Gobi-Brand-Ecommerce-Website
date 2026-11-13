@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 const categories = ["BESTSELLERS", "CASHMERETECH", "COATS"];
@@ -113,11 +114,13 @@ export default function NewArrivals() {
           .filter((product) => product.category === activeCategory)
           .map((product) => (
             <article key={product.name} className="min-w-0">
-              <div className="aspect-[3/4] overflow-hidden bg-[#f1f1ef]">
-                <img
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#f1f1ef]">
+                <Image
                   src={product.image}
                   alt={product.name}
-                  className="h-full w-full object-contain transition-transform duration-500 hover:scale-105"
+                  fill
+                  sizes="(max-width: 1023px) 50vw, 25vw"
+                  className="object-contain transition-transform duration-500 hover:scale-105"
                 />
               </div>
 

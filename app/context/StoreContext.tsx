@@ -38,6 +38,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       const savedWishlist = localStorage.getItem("gobi-wishlist");
 
       if (savedCart) {
+        // This effect synchronizes React state with browser storage.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCart(JSON.parse(savedCart));
       }
 

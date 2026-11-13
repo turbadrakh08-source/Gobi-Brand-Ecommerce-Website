@@ -28,7 +28,7 @@ export default function AdminDashboard() {
         }
 
         setProducts(data.products);
-      } catch (error) {
+      } catch {
         setError("Failed to load products. Please try again.");
       } finally {
         setLoading(false);

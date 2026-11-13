@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useStore } from "@/app/context/StoreContext";
 import { Heart, ShoppingBag } from "lucide-react";
 
@@ -36,10 +37,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Product image */}
       <div className="group/image relative aspect-[3/4] overflow-hidden bg-neutral-100">
         {product.images?.[0] && (
-          <img
+          <Image
             src={product.images[0]}
             alt={product.name}
-            className="h-full w-full object-contain transition-transform duration-700 ease-in-out group-hover/image:scale-105"
+            fill
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            className="object-contain transition-transform duration-700 ease-in-out group-hover/image:scale-105"
           />
         )}
 
@@ -47,7 +50,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <button
           type="button"
           onClick={() => toggleWishlist(product._id)}
-          className="absolute right-3 top-3 z-10 flex h-10 w-10 translate-y-2 items-center justify-center rounded-full bg-white text-black opacity-0 shadow-sm transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100 hover:bg-black hover:text-white focus-visible:translate-y-0 focus-visible:opacity-100 cursor-pointer"
+          className="absolute right-3 top-3 z-10 flex h-10 w-10 translate-y-2 cursor-pointer items-center justify-center rounded-full bg-white text-black opacity-0 shadow-sm transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100 hover:bg-black hover:text-white focus-visible:translate-y-0 focus-visible:opacity-100"
           aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >
           <Heart
@@ -61,7 +64,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <button
           type="button"
           onClick={handleAddToCart}
-          className="absolute bottom-3 right-3 z-10 flex h-12 w-12 translate-y-2 items-center justify-center rounded-full bg-white text-black opacity-0 shadow-sm transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100 hover:bg-black hover:text-white focus-visible:translate-y-0 focus-visible:opacity-100 cursor-pointer"
+          className="absolute bottom-3 right-3 z-10 flex h-12 w-12 translate-y-2 cursor-pointer items-center justify-center rounded-full bg-white text-black opacity-0 shadow-sm transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100 hover:bg-black hover:text-white focus-visible:translate-y-0 focus-visible:opacity-100"
           aria-label="Add to cart"
         >
           <ShoppingBag size={19} strokeWidth={1.5} />

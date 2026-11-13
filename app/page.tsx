@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "../components/Navbar";
@@ -7,6 +8,7 @@ import ShopCategories from "@/components/ShopCategories";
 import NewArrivals from "@/components/NewArrivals";
 import Reviews from "@/components/Reviews";
 import BlogSection from "@/components/BlogSection";
+
 export default function Home() {
   const slides = [
     {
@@ -46,11 +48,14 @@ export default function Home() {
         className="relative min-h-screen overflow-hidden bg-[#d5cbbd]"
       >
         {/* Hero background image */}
-        <img
+        <Image
           key={slide.path}
           src={slide.path}
           alt={slide.title}
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
         />
 
         {/* Dark overlay */}
@@ -97,6 +102,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <NewArrivals />
       <ShopCategories />
       <Reviews />

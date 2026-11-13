@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function NewProductPage() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Cardigans");
   const [gender, setGender] = useState("Women");
@@ -76,7 +80,7 @@ export default function NewProductPage() {
       }
 
       alert("Product added successfully!");
-      window.location.href = "/admin/products/new";
+      router.push("/admin/products/new");
     } catch (error) {
       alert(
         error instanceof Error
@@ -92,6 +96,7 @@ export default function NewProductPage() {
     <main className="min-h-screen bg-gray-100 p-8">
       <div className="mx-auto max-w-3xl">
         <h1 className="text-3xl font-bold">Add New Product</h1>
+
         <p className="mt-2 text-gray-600">
           Enter the details of your new product.
         </p>
@@ -228,9 +233,12 @@ export default function NewProductPage() {
             />
 
             {imagePreview && (
-              <img
+              <Image
                 src={imagePreview}
                 alt="Product preview"
+                width={160}
+                height={160}
+                unoptimized
                 className="mt-4 h-40 w-40 rounded-lg object-cover"
               />
             )}
