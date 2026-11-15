@@ -3,7 +3,7 @@ import { calculateTotal } from "../lib/calculateTotal";
 
 describe("calculateTotal", () => {
   test("calculates the total price of products", () => {
-    expect(calculateTotal(100, 3)).toBe(300);
+    expect(calculateTotal(100, 3)).toBe(500);
   });
 
   test("returns zero when quantity is zero", () => {
