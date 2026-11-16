@@ -3,6 +3,9 @@ import { ObjectId } from "mongodb";
 import clientPromise from "@/lib/mongodb";
 import { verifyAdmin } from "@/lib/auth";
 
+// Select the collection based on the current environment.
+const isTest = process.env.NODE_ENV === "test";
+
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
@@ -29,9 +32,13 @@ export async function PUT(
     const product = await request.json();
 
     const client = await clientPromise;
-    const db = client.db("gobi-brands");
+    const db = client.db();
 
-    const result = await db.collection("products").updateOne(
+    const collection = db.collection(
+      isTest ? "gobi-brands-testing" : "products",
+    );
+
+    const result = await collection.updateOne(
       { _id: new ObjectId(id) },
       {
         $set: {
@@ -86,9 +93,13 @@ export async function DELETE(
     }
 
     const client = await clientPromise;
-    const db = client.db("gobi-brands");
+    const db = client.db();
 
-    const result = await db.collection("products").deleteOne({
+    const collection = db.collection(
+      isTest ? "gobi-brands-testing" : "products",
+    );
+
+    const result = await collection.deleteOne({
       _id: new ObjectId(id),
     });
 

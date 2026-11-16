@@ -2,12 +2,18 @@ import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import { verifyAdmin } from "@/lib/auth";
 
+const isTest = process.env.NODE_ENV === "test";
+
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db("gobi-brands");
+    const db = client.db();
 
-    const products = await db.collection("products").find({}).toArray();
+    const collection = db.collection(
+      isTest ? "gobi-brands-testing" : "products",
+    );
+
+    const products = await collection.find({}).toArray();
 
     return NextResponse.json({
       success: true,
@@ -37,11 +43,15 @@ export async function POST(request: Request) {
     const product = await request.json();
 
     const client = await clientPromise;
-    const db = client.db("gobi-brands");
+    const db = client.db();
 
-    // Check for duplicate SKU when one is provided
+    const collection = db.collection(
+      isTest ? "gobi-brands-testing" : "products",
+    );
+
+    // Check for duplicate SKU when one is provided.
     if (product.sku) {
-      const existingProduct = await db.collection("products").findOne({
+      const existingProduct = await collection.findOne({
         sku: product.sku,
       });
 
@@ -56,7 +66,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const result = await db.collection("products").insertOne({
+    const result = await collection.insertOne({
       ...product,
       createdAt: new Date(),
       updatedAt: new Date(),
