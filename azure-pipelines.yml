@@ -58,6 +58,18 @@ stages:
               npm --version
               npm ls jest ts-jest mongodb bson
             displayName: Check test environment
+
+          - script: |
+              if [ -z "$MONGODB_TEST_URI" ]; then
+                echo "Result: Variable is EMPTY."
+              else
+                echo "Result: Variable is NOT empty."
+                echo "First 10 characters: ${MONGODB_TEST_URI:0:10}"
+              fi
+            displayName: Check MongoDB variable
+            env:
+              MONGODB_TEST_URI: $(MONGODB_TEST_URI)
+
           - script: |
                 if [[ "$MONGODB_TEST_URI" == mongodb+srv://* || "$MONGODB_TEST_URI" == mongodb://* ]]; then
                   echo "MongoDB test URI has a valid prefix."
