@@ -47,5 +47,7 @@ stages:
 
           - script: npm run lint
             displayName: Run ESLint
-          - script: npm test
+          
+          - script: npm test -- --ci
             displayName: Run Jest tests
+
