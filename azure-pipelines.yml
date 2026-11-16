@@ -58,7 +58,15 @@ stages:
               npm --version
               npm ls jest ts-jest mongodb bson
             displayName: Check test environment
-
+          - script: |
+                if [[ "$MONGODB_TEST_URI" == mongodb+srv://* || "$MONGODB_TEST_URI" == mongodb://* ]]; then
+                  echo "MongoDB test URI has a valid prefix."
+                else
+                  echo "MongoDB test URI is missing or has an invalid prefix."
+                fi
+            displayName: Validate MongoDB test URI
+            env:
+              MONGODB_TEST_URI: $(MONGODB_TEST_URI)
           - script: npm run test:integration
             displayName: Run API Integration Tests
             env:
