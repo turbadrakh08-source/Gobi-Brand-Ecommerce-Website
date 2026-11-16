@@ -50,6 +50,11 @@ stages:
           - script: npm test -- --ci
             displayName: Run Jest tests
 
+          - script: |
+              node --version
+              npm --version
+              npm ls jest ts-jest mongodb bson
+            displayName: Check test environment
           - script: npm run test:integration
             displayName: Run API Integration Tests
             env:
