@@ -3,22 +3,31 @@ import { StoreProvider, useStore } from "@/app/context/StoreContext";
 import ProductCard from "@/components/ProductCard";
 import { jest, describe, test, expect, beforeEach } from "@jest/globals";
 // Mock Next.js Image because we don't need image optimization in Jest.
+import type { ImageProps } from "next/image";
+
+// Mock Next.js Image because we don't need image optimization in Jest.
+/* eslint-disable @next/next/no-img-element, jsx-a11y/alt-text */
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => {
-    const { fill, ...imageProps } = props;
-
-    return <img {...imageProps} />;
+  default: ({ src, alt, className }: import("next/image").ImageProps) => {
+    return (
+      <img
+        src={typeof src === "string" ? src : ""}
+        alt={alt ?? ""}
+        className={className}
+      />
+    );
   },
 }));
-const testProduct = {
-  _id: "product-123",
-  name: "Cashmere Sweater",
-  price: 199,
-  currency: "EUR",
-  images: ["/sweater.webp"],
-  colors: ["Black", "Grey"],
-};
+/* eslint-enable @next/next/no-img-element, jsx-a11y/alt-text */ const testProduct =
+  {
+    _id: "product-123",
+    name: "Cashmere Sweater",
+    price: 199,
+    currency: "EUR",
+    images: ["/sweater.webp"],
+    colors: ["Black", "Grey"],
+  };
 
 // This component lets our tests see the real cart and wishlist state.
 function StoreStatus() {

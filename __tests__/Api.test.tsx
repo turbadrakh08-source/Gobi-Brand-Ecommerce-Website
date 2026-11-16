@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { jest, describe, test, expect, beforeEach } from "@jest/globals";
 import { NextRequest } from "next/server";
 
