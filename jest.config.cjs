@@ -21,6 +21,10 @@ const config = {
       },
     ],
   },
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "<rootDir>/__tests__/integration/",
+  ],
 };
 
 module.exports = config;

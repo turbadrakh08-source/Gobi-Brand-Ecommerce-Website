@@ -18,7 +18,7 @@ stages:
           - task: UseNode@1
             displayName: Install Node.js
             inputs:
-              version: '24.x'
+              version: "24.x"
 
           - script: npm ci
             displayName: Install dependencies
@@ -39,14 +39,17 @@ stages:
           - task: UseNode@1
             displayName: Install Node.js
             inputs:
-              version: '24.x'
+              version: "24.x"
 
           - script: npm ci
             displayName: Install dependencies
 
           - script: npm run lint
             displayName: Run ESLint
-          
+
+          - script: node --version
+            displayName: Check Node.js version
+
           - script: npm test -- --ci
             displayName: Run Jest tests
 
@@ -55,6 +58,7 @@ stages:
               npm --version
               npm ls jest ts-jest mongodb bson
             displayName: Check test environment
+
           - script: npm run test:integration
             displayName: Run API Integration Tests
             env:
