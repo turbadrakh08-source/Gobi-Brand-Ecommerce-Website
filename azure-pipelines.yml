@@ -27,6 +27,9 @@ stages:
             displayName: Build Next.js
             env:
               MONGODB_URI: $(MONGODB_URI)
+          - script: |
+              echo "Variable group check: $(PIPELINE_GROUP_CHECK)"
+            displayName: Verify variable group loading
 
   # STAGE 2: TEST
   - stage: Test
