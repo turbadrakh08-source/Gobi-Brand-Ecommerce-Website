@@ -51,3 +51,5 @@ stages:
           - script: npm test -- --ci
             displayName: Run Jest tests
 
+          - script: npm run test:integration
+            displayName: Run API Integration Tests
