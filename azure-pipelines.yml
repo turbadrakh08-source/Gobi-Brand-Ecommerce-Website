@@ -64,7 +64,7 @@ stages:
                 echo "Result: Variable is EMPTY."
               else
                 echo "Result: Variable is NOT empty."
-                echo "First 10 characters: ${MONGODB_TEST_URI:0:10}"
+                echo "First 10 characters: ${MONGODB_TEST_URI:0:18}"
               fi
             displayName: Check MongoDB variable
             env:
