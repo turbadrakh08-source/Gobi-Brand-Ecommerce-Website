@@ -1,27 +1,22 @@
+/** @type {import('jest').Config} */
 const config = {
   clearMocks: true,
+
   testEnvironment: "jsdom",
 
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1",
+  },
 
   transform: {
-    "^.+\\.(t|j)sx?$": [
-      "@swc/jest",
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
       {
-        jsc: {
-          parser: {
-            syntax: "typescript",
-            tsx: true,
-          },
-          transform: {
-            react: {
-              runtime: "automatic",
-            },
-          },
-          target: "es2022",
-        },
-        module: {
-          type: "commonjs",
+        tsconfig: {
+          jsx: "react-jsx",
+          esModuleInterop: true,
         },
       },
     ],
