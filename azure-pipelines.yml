@@ -1,4 +1,3 @@
-
 trigger:
   - main
 
@@ -53,3 +52,5 @@ stages:
 
           - script: npm run test:integration
             displayName: Run API Integration Tests
+            env:
+              MONGODB_URI: $(MONGODB_TEST_URI)
