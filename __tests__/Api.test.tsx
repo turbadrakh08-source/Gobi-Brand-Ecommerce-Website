@@ -70,14 +70,14 @@ mockCollection.mockReturnValue({
 mockDb.mockReturnValue({
   collection: mockCollection,
 });
-
 jest.mock("@/lib/mongodb", () => ({
   __esModule: true,
-  default: Promise.resolve({
-    db: mockDb,
-  }),
+  getMongoClient: jest
+    .fn<() => Promise<{ db: typeof mockDb }>>()
+    .mockResolvedValue({
+      db: mockDb,
+    }),
 }));
-
 // ==========================================
 // 3. MOCK AUTHENTICATION
 // ==========================================

@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    image: gobi-brands:1.0
+    container_name: gobirands-app
+    ports:
+      - "8080:3000"
+    env_file:
+      - /home/student/gobi-runtime.env
+    restart: unless-stopped

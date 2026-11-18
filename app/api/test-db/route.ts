@@ -1,9 +1,9 @@
-import clientPromise from "@/lib/mongodb";
+import { getMongoClient } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const client = await clientPromise;
+    const client = await getMongoClient();
     await client.db("gobi-brands").command({ ping: 1 });
 
     return NextResponse.json({

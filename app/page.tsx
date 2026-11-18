@@ -42,6 +42,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#faf9f6]">
       <AnnouncementBar />
+      <h1>Gobi docker testing</h1>
 
       <section
         id="home"

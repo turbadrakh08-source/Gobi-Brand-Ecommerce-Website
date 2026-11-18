@@ -1,4 +1,4 @@
-import clientPromise from "@/lib/mongodb";
+import { getMongoClient } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import { verifyAdmin } from "@/lib/auth";
 
@@ -6,7 +6,7 @@ const isTest = process.env.NODE_ENV === "test";
 
 export async function GET() {
   try {
-    const client = await clientPromise;
+    const client = await getMongoClient();
     const db = client.db();
 
     const collection = db.collection(
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
     const product = await request.json();
 
-    const client = await clientPromise;
+    const client = await getMongoClient();
     const db = client.db();
 
     const collection = db.collection(

@@ -1,7 +1,6 @@
-import clientPromise from "@/lib/mongodb";
-
+import { getMongoClient } from "./mongodb";
 export async function setupProductIndexes() {
-  const client = await clientPromise;
+  const client = await getMongoClient();
   const db = client.db("gobi-brands");
 
   await db.collection("products").createIndex(

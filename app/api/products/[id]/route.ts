@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-import clientPromise from "@/lib/mongodb";
+import { getMongoClient } from "@/lib/mongodb";
 import { verifyAdmin } from "@/lib/auth";
 
 // Select the collection based on the current environment.
@@ -31,7 +31,7 @@ export async function PUT(
 
     const product = await request.json();
 
-    const client = await clientPromise;
+    const client = await getMongoClient();
     const db = client.db();
 
     const collection = db.collection(
@@ -92,7 +92,7 @@ export async function DELETE(
       );
     }
 
-    const client = await clientPromise;
+    const client = await getMongoClient();
     const db = client.db();
 
     const collection = db.collection(
