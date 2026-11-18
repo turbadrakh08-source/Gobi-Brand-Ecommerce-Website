@@ -1,3 +1,4 @@
+
 trigger:
   - main
 
@@ -27,9 +28,6 @@ stages:
             displayName: Build Next.js
             env:
               MONGODB_URI: $(MONGODB_URI)
-          - script: |
-              echo "Variable group check: $(PIPELINE_GROUP_CHECK)"
-            displayName: Verify variable group loading
 
   # STAGE 2: TEST
   - stage: Test
@@ -50,9 +48,6 @@ stages:
           - script: npm run lint
             displayName: Run ESLint
 
-          - script: node --version
-            displayName: Check Node.js version
-
           - script: npm test -- --ci
             displayName: Run Jest tests
 
@@ -63,26 +58,37 @@ stages:
             displayName: Check test environment
 
           - script: |
-              if [ -z "$MONGODB_TEST_URI" ]; then
-                echo "Result: Variable is EMPTY."
+              if [[ "$MONGODB_TEST_URI" == mongodb+srv://* || "$MONGODB_TEST_URI" == mongodb://* ]]; then
+                echo "MongoDB test URI has a valid prefix."
               else
-                echo "Result: Variable is NOT empty."
-                echo "First 10 characters: ${MONGODB_TEST_URI:0:40}"
+                echo "MongoDB test URI is missing or has an invalid prefix."
+                exit 1
               fi
-            displayName: Check MongoDB variable
-            env:
-              MONGODB_TEST_URI: $(MONGODB_TEST_URI)
-
-          - script: |
-                if [[ "$MONGODB_TEST_URI" == mongodb+srv://* || "$MONGODB_TEST_URI" == mongodb://* ]]; then
-                  echo "MongoDB test URI has a valid prefix."
-                else
-                  echo "MongoDB test URI is missing or has an invalid prefix."
-                fi
             displayName: Validate MongoDB test URI
             env:
               MONGODB_TEST_URI: $(MONGODB_TEST_URI)
+
           - script: npm run test:integration
             displayName: Run API Integration Tests
             env:
               MONGODB_TEST_URI: $(MONGODB_TEST_URI)
+
+  # STAGE 3: DOCKER
+  - stage: Docker
+    displayName: Build and Push Docker Image
+    dependsOn: Test
+    jobs:
+      - job: DockerJob
+        displayName: Publish GOBI Image
+        steps:
+          - task: Docker@2
+            displayName: Build and Push to Docker Hub
+            inputs:
+              command: buildAndPush
+              containerRegistry: dockerhub-gobi
+              repository: $(DOCKERHUB_USERNAME)/gobi-brands
+              Dockerfile: '**/Dockerfile'
+              buildContext: .
+              tags: |
+                latest
+                $(Build.BuildId)
