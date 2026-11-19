@@ -5,15 +5,16 @@ cd /media/sf_gobi-brands
 
 
 IMAGE="turbadrakh/gobi-brands:latest"
+CONTAINER="gobi-brands-app"
 
-OLD_ID=$(sudo docker image inspect "$IMAGE" --format '{{.Id}}' 2>/dev/null || echo "none")
+RUNNING_ID=$(sudo docker inspect "$CONTAINER" --format '{{.Image}}' 2>/dev/null || echo "none")
 
-echo "Checking Docker Hub for updates ..."
+echo "Pulling image from Docker Hub ..."
 sudo docker compose pull web
 
 NEW_ID=$(sudo docker image inspect "$IMAGE" --format '{{.Id}}')
 
-if [ "$OLD_ID" != "$NEW_ID" ]; then
+if [ "$RUNNING__ID" != "$NEW_ID" ]; then
 	echo "New image detected. Deploying..."
 	sudo docker compose up -d
 	sudo docker compose ps
