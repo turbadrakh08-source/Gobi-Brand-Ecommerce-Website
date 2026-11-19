@@ -1,8 +1,7 @@
 services:
   web:
-    build: .
-    image: gobi-brands:1.0
-    container_name: gobirands-app
+    image: turbadrakh/gobi-brands:latest
+    container_name: gobi-brands-app
     ports:
       - "8080:3000"
     env_file:
