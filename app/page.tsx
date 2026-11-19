@@ -44,6 +44,7 @@ export default function Home() {
       <AnnouncementBar />
       <h1>Gobi docker testing</h1>
 
+      <p>Deployment test - version 2</p>
       <section
         id="home"
         className="relative min-h-screen overflow-hidden bg-[#d5cbbd]"
